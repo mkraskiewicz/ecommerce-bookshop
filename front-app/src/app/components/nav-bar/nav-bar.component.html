@@ -1,0 +1,14 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <h1>Welcome</h1>
+        <span *ngIf="username"><p>, {{username}}</p></span>
+        <span class="example-spacer"></span>
+        <span *ngIf="!authority" ><button mat-raised-button color="primary" routerLink="auth/login" >Login</button></span>
+        <span *ngIf="authority"><button mat-raised-button color="primary" routerLink="addbook" >Add a Book</button></span>
+        <span *ngIf="authority"><button mat-raised-button color="primary" routerLink="booklist" >List of Books</button></span>
+        <span *ngIf="authority"><button mat-raised-button color="primary" (click)="logout()">Logout</button></span>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
