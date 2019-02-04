@@ -25,6 +25,11 @@ export class BookService {
     return this.http.put<Book>(this.baseUrl + '/' + id, book, httpOptions);
   }
 
+  deleteBook(id: Number){
+    console.log(this.baseUrl + '/' + id)
+    return this.http.delete(this.baseUrl + '/' + id, httpOptions);
+  }
+
   sendImage(file: File, id: Number) {
     let formdata: FormData = new FormData();
  

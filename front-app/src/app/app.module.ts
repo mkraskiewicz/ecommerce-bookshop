@@ -15,10 +15,10 @@ import {DemoMaterialModule} from '../material-module';
 import { HomeComponent } from './components/home/home.component';
 import { AddNewBookComponent } from './components/book/add-new-book/add-new-book.component';
 import { BookService } from './services/book.service';
-import { BookListComponent } from './components/book/book-list/book-list.component';
+import { BookListComponent, DialogDeleteBookDialog } from './components/book/book-list/book-list.component';
+
 import { BookViewComponent } from './components/book/book-view/book-view.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
-
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { BookEditComponent } from './components/book/book-edit/book-edit.compone
     AddNewBookComponent,
     BookListComponent,
     BookViewComponent,
-    BookEditComponent
+    BookEditComponent,
+    DialogDeleteBookDialog
   ],
   imports: [
     BrowserModule,
@@ -46,6 +47,7 @@ import { BookEditComponent } from './components/book/book-edit/book-edit.compone
     HttpClientModule,
     DemoMaterialModule
   ],
+  entryComponents: [BookListComponent, DialogDeleteBookDialog],
   providers: [httpInterceptorProviders, 
     BookService],
   bootstrap: [AppComponent]

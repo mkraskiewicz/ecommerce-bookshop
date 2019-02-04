@@ -1,9 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { Book } from '../../../models/book';
 import { BookService } from 'src/app/services/book.service';
-import {MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import {MatSort, MatTableDataSource, MatPaginator, MatDialog,
+   MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Router} from '@angular/router';
+
+export interface DialogData {
+  ifDelete:boolean;
+}
+
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
@@ -20,10 +26,11 @@ export class BookListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator; 
 
-  displayedColumns: string[] = ['select','id', 'title', 'author', 'category', 'price', 'format', 'active', 'view'];
+  displayedColumns: string[] = ['select','id', 'title', 'author', 'category', 'price', 'format', 'active', 'view', 'delete'];
 
   constructor(
-  		private bookService: BookService, private router:Router) { }
+      private bookService: BookService, private router:Router,
+      public dialog: MatDialog) { }
 
   ngOnInit() {
   	this.bookService.getBookList().subscribe(
@@ -59,4 +66,37 @@ export class BookListComponent implements OnInit {
     this.selectedBook=book;
     this.router.navigate(['/viewBook', this.selectedBook.id]);
   }
+
+  openDeleteDialog(id: number): void {
+    const dialogRef = this.dialog.open(DialogDeleteBookDialog, {
+      width: '250px',
+      data: {ifDelete: false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if(result){
+        this.bookService.deleteBook(id).subscribe();
+        
+
+      }
+    });
+  }
+
+}
+
+@Component({
+  selector: 'dialog-delete-book-dialog',
+  templateUrl: 'dialog-delete-book.html',
+})
+export class DialogDeleteBookDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogDeleteBookDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

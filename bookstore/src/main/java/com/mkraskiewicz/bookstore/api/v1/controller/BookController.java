@@ -61,4 +61,10 @@ public class BookController {
         return bookService.saveBookByDTO(id, bookDto);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteBook(@PathVariable("id") Long id) {
+
+        bookService.deleteBookById(id);
+    }
 }
