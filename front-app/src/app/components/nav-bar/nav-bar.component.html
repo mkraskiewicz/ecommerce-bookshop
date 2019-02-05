@@ -1,12 +1,30 @@
+<!-- <div class = "alternative"></div> -->
+<div class="page-top" style="width: 100%; height: 20px; background-color: #51146b"></div>
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav-content>
       <mat-toolbar color="primary">
-        <h1>Welcome</h1>
-        <span *ngIf="username"><p>, {{username}}</p></span>
-        <span class="example-spacer"></span>
+        <span *ngIf="authority==='user'" style="margin-right: 30px"><p>Welcome, {{username}}</p></span>
+        <span *ngIf="authority==='admin'" style="margin-right: 30px"><p>Administration Panel</p></span>
+       
         <span *ngIf="!authority" ><button mat-raised-button color="primary" routerLink="auth/login" >Login</button></span>
-        <span *ngIf="authority"><button mat-raised-button color="primary" routerLink="addbook" >Add a Book</button></span>
-        <span *ngIf="authority"><button mat-raised-button color="primary" routerLink="booklist" >List of Books</button></span>
+        <span *ngIf="authority && authority==='admin'"><button mat-raised-button color="primary" routerLink="addbook" >Add a Book</button></span>
+        <span *ngIf="authority && authority==='admin'"><button mat-raised-button color="primary" routerLink="booklist" >List of Books</button></span>
+        <span *ngIf="authority && authority==='user'" style="margin-right: 15px">
+                <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      
+                    <mat-form-field>
+                        <input matInput id="title" type="text" name="title" value="Search...">
+                      </mat-form-field>
+
+                    <button mat-flat-button color="primary" type="submit">Search</button>
+
+            </form>
+        </span>
+        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >List of Books</button></span>
+        <span class="example-spacer"></span>
+        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >My Account</button></span>
+        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >Shopping Cart</button></span>
+        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >My Profile</button></span>
         <span *ngIf="authority"><button mat-raised-button color="primary" (click)="logout()">Logout</button></span>
       </mat-toolbar>
       <router-outlet></router-outlet>

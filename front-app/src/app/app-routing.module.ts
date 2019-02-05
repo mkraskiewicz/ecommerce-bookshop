@@ -9,6 +9,7 @@ import { AddNewBookComponent } from './components/book/add-new-book/add-new-book
 import { BookListComponent } from './components/book/book-list/book-list.component';
 import { BookViewComponent } from './components/book/book-view/book-view.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
+import { HomeUserComponent } from './components/home/home-user/home-user.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,10 @@ const routes: Routes = [
     {
 		path: 'editBook/:id',
 		component: BookEditComponent
+    },
+    {
+		path: 'homepage',
+		component: HomeUserComponent
 	},
     {
         path: '',

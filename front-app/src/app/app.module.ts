@@ -19,6 +19,7 @@ import { BookListComponent, DialogDeleteBookDialog } from './components/book/boo
 
 import { BookViewComponent } from './components/book/book-view/book-view.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
+import { HomeUserComponent } from './components/home/home-user/home-user.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BookEditComponent } from './components/book/book-edit/book-edit.compone
     BookListComponent,
     BookViewComponent,
     BookEditComponent,
-    DialogDeleteBookDialog
+    DialogDeleteBookDialog,
+    HomeUserComponent
   ],
   imports: [
     BrowserModule,

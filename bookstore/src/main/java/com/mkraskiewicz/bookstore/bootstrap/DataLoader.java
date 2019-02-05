@@ -40,12 +40,19 @@ public class DataLoader implements CommandLineRunner {
         Role c = new Role(RoleName.ROLE_ADMIN);
         roleRepository.save(a);
         roleRepository.save(c);
-        User admin = new User("Majciej", "maciej", "mail@mail.com", encoder.encode("123456"));
+        User admin = new User("Majciej", "maciej", "admin@mail.com", encoder.encode("123456"));
         Set<Role> roles = new HashSet<>();
         roles.add(a);
         roles.add(c);
         admin.setRoles(roles);
         userRepository.save(admin);
+
+        User user = new User("user", "user", "mail@mail.com", encoder.encode("123456"));
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(a);
+        user.setRoles(userRoles);
+        userRepository.save(user);
+
 
         Book book = new Book();
         book.setTitle("Test Book");
