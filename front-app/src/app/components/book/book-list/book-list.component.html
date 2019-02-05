@@ -3,6 +3,15 @@
     <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search...">
     </mat-form-field>
+    <br>
+    <mat-card-actions>
+            <mat-grid-list cols="4" rowHeight="50px">
+                    <mat-grid-tile [colspan]="4" [rowspan]="1">
+    <button  mat-button class="mat-warn" id="deleteSelected"
+    style="flex: 1 1 auto;" (click)="openDeleteAllDialog()">Delete Selected</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-card-actions>
 </mat-card>
 <br>
       <table id="bookListTable" [dataSource]="dataSource" matSort mat-table class="mat-elevation-z8">
@@ -66,6 +75,6 @@
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-    <button mat-raised-button class="mat-warn" id="deleteSelected" (click)="removeSelectedBooks()">Delete Selected</button>
+    
 
   

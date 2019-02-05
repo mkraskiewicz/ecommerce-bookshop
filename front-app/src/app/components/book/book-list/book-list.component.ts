@@ -17,10 +17,7 @@ export interface DialogData {
 })
 export class BookListComponent implements OnInit {
 	private selectedBook : Book;
-	private checked: boolean;
-	private bookList: Book[];
-	private allChecked: boolean;
-  private removeBookList: Book[] = new Array();
+
   dataSource = new MatTableDataSource();
   selection = new SelectionModel(true, []);
   @ViewChild(MatSort) sort: MatSort;
@@ -36,7 +33,7 @@ export class BookListComponent implements OnInit {
   	this.bookService.getBookList().subscribe(
   		data => {
         //this.bookList = res;
-        this.dataSource = new MatTableDataSource(data);
+        this.dataSource = new MatTableDataSource<Book>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
   		}, 
@@ -58,6 +55,14 @@ export class BookListComponent implements OnInit {
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
+  removeSelectedBooks() {
+        this.dataSource.data.forEach(row =>  {
+          if(this.selection.isSelected(row)){
+            this.bookService.deleteBook(row['id']).subscribe();
+          }      
+        });
+        this.getBooks();
+  }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -74,13 +79,40 @@ export class BookListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if(result){
         this.bookService.deleteBook(id).subscribe();
-        
+        this.getBooks();
 
       }
     });
+  }
+
+  openDeleteAllDialog(): void {
+    const dialogRef = this.dialog.open(DialogDeleteBookDialog, {
+      width: '250px',
+      data: {ifDelete: false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+      this.removeSelectedBooks();
+      }
+    });
+  }
+
+  private getBooks(){
+    this.bookService.getBookList().subscribe(
+      data => {
+        //this.bookList = res;
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        window.location.reload();
+      }, 
+      error => {
+        console.log(error);
+      }
+    );
   }
 
 }
