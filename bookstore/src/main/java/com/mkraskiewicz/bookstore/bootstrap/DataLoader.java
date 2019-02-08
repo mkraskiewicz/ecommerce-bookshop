@@ -1,12 +1,10 @@
 package com.mkraskiewicz.bookstore.bootstrap;
 
-import com.mkraskiewicz.bookstore.domain.Book;
-import com.mkraskiewicz.bookstore.domain.Role;
-import com.mkraskiewicz.bookstore.domain.RoleName;
-import com.mkraskiewicz.bookstore.domain.User;
+import com.mkraskiewicz.bookstore.domain.*;
 import com.mkraskiewicz.bookstore.repository.BookRepository;
 import com.mkraskiewicz.bookstore.repository.RoleRepository;
 import com.mkraskiewicz.bookstore.repository.UserRepository;
+import com.mkraskiewicz.bookstore.repository.UserTokensRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +22,8 @@ public class DataLoader implements CommandLineRunner {
     UserRepository userRepository;
     @Autowired
     BookRepository bookRepository;
+    @Autowired
+    UserTokensRepository userTokensRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -40,12 +40,21 @@ public class DataLoader implements CommandLineRunner {
         Role c = new Role(RoleName.ROLE_ADMIN);
         roleRepository.save(a);
         roleRepository.save(c);
-        User admin = new User("Majciej", "maciej", "admin@mail.com", encoder.encode("123456"));
+        User admin = new User("Majciej", "maciej", "thamiar@gmail.com", encoder.encode("123456"));
         Set<Role> roles = new HashSet<>();
         roles.add(a);
         roles.add(c);
         admin.setRoles(roles);
         userRepository.save(admin);
+
+        UserTokens ut = new UserTokens();
+        ut.setUser(admin);
+        ut.setForgetToken("ABCD");
+
+        admin.setTokens(ut);
+        userRepository.save(admin);
+
+
 
         User user = new User("user", "user", "mail@mail.com", encoder.encode("123456"));
         Set<Role> userRoles = new HashSet<>();

@@ -1,0 +1,55 @@
+<mat-tab-group class="card">
+    <mat-tab label="Login"> <app-login></app-login> </mat-tab>
+    <mat-tab label="Sign Up"> <app-register></app-register> </mat-tab>
+    <mat-tab label="Forgot Password?"> 
+
+        <div *ngIf="isSentUp; else signupForm" style="margin-top: 10px;">
+            <mat-card class="card">
+              Email with change password notification has been sent!
+            </mat-card>
+        </div>
+
+         
+        <ng-template #signupForm>
+            <mat-card class="card" style="max-width:350px; margin-top: 10px;">
+                <mat-card-header>
+                  
+                  <mat-card-title>Forgot Password?</mat-card-title>
+                  <mat-card-subtitle>Please enter your email</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="row col-sm-6" style="max-width:350px;">
+                        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                          
+                        <div class="form-group">
+                            <mat-form-field>
+                                <input matInput type="text" placeholder="Email" class="form-control" name="email" 
+                                [(ngModel)]="form.email" #email="ngModel" email required>
+                                <div *ngIf="f.submitted && email.invalid">
+                                    <div *ngIf="email.errors.required">Email is required</div>
+                                <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                                </div>
+                              </mat-form-field>
+                            </div>
+                            <div class="form-group" style="text-align:center;">
+                                <button mat-raised-button color="primary">Send reminder</button>
+                                <div *ngIf="f.submitted && isSentFailed" class="alert alert-warning">
+                                    <mat-error>{{errorMessage}}</mat-error>
+                                </div>
+                              </div>
+      
+                        </form>
+                      </div>
+                    
+                  </mat-card-content>
+            </mat-card>
+        </ng-template>
+
+
+
+
+
+
+    </mat-tab>
+  </mat-tab-group>
+  

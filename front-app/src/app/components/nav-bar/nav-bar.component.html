@@ -6,7 +6,7 @@
         <span *ngIf="authority==='user'" style="margin-right: 30px"><p>Welcome, {{username}}</p></span>
         <span *ngIf="authority==='admin'" style="margin-right: 30px"><p>Administration Panel</p></span>
        
-        <span *ngIf="!authority" ><button mat-raised-button color="primary" routerLink="auth/login" >Login</button></span>
+        <span *ngIf="!authority" ><button mat-raised-button color="primary" routerLink="auth/logincontroller" >Login</button></span>
         <span *ngIf="authority && authority==='admin'"><button mat-raised-button color="primary" routerLink="addbook" >Add a Book</button></span>
         <span *ngIf="authority && authority==='admin'"><button mat-raised-button color="primary" routerLink="booklist" >List of Books</button></span>
         <span *ngIf="authority && authority==='user'" style="margin-right: 15px">

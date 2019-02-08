@@ -20,6 +20,9 @@ import { BookListComponent, DialogDeleteBookDialog } from './components/book/boo
 import { BookViewComponent } from './components/book/book-view/book-view.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 import { HomeUserComponent } from './components/home/home-user/home-user.component';
+import { LogincontrollerComponent } from './security/logincontroller/logincontroller.component';
+import { CheckPasswordDirective } from './security/check-password.directive';
+import { ResetPasswordComponent } from './security/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { HomeUserComponent } from './components/home/home-user/home-user.compone
     BookViewComponent,
     BookEditComponent,
     DialogDeleteBookDialog,
-    HomeUserComponent
+    HomeUserComponent,
+    LogincontrollerComponent,
+    CheckPasswordDirective,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

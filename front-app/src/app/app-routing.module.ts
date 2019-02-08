@@ -10,6 +10,8 @@ import { BookListComponent } from './components/book/book-list/book-list.compone
 import { BookViewComponent } from './components/book/book-view/book-view.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 import { HomeUserComponent } from './components/home/home-user/home-user.component';
+import { LogincontrollerComponent } from './security/logincontroller/logincontroller.component';
+import { ResetPasswordComponent } from './security/reset-password/reset-password.component';
 
 const routes: Routes = [
     {
@@ -43,7 +45,15 @@ const routes: Routes = [
     {
 		path: 'homepage',
 		component: HomeUserComponent
-	},
+    },
+    {
+        path: 'auth/logincontroller',
+        component: LogincontrollerComponent
+    },
+    {
+        path: 'auth/resetpassword/:token',
+        component: ResetPasswordComponent
+    },
     {
         path: '',
         redirectTo: 'home',
