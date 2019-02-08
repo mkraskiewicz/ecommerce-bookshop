@@ -23,6 +23,7 @@ import { HomeUserComponent } from './components/home/home-user/home-user.compone
 import { LogincontrollerComponent } from './security/logincontroller/logincontroller.component';
 import { CheckPasswordDirective } from './security/check-password.directive';
 import { ResetPasswordComponent } from './security/reset-password/reset-password.component';
+import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ResetPasswordComponent } from './security/reset-password/reset-password
     HomeUserComponent,
     LogincontrollerComponent,
     CheckPasswordDirective,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,

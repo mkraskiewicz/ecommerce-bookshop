@@ -22,9 +22,9 @@ import java.util.List;
 public class BookController {
 
     public static final String BASE_URL = "/api/v1/book";
-    private BookService bookService;
-    private BookMapper bookMapper;
-    private ImageService imageService;
+    private final BookService bookService;
+    private final BookMapper bookMapper;
+    private final  ImageService imageService;
 
     public BookController(BookService bookService, BookMapper bookMapper, ImageService imageService) {
         this.bookService = bookService;

@@ -8,9 +8,12 @@ import java.util.Optional;
 
 public interface UserService {
 
-    public Optional<User> findByEmail(String email);
-    public void save(User user);
-    public Map<String, String> resetPassword(User user, UserTokens userTokens,
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
+    void save(User user);
+    Map<String, String> resetPassword(User user, UserTokens userTokens,
                                              String password);
+    Boolean ifUserExists(String username);
+    Boolean ifUserWithEmailExists(String email);
 
 }

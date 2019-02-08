@@ -25,6 +25,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Value("${mkraskiewicz.app.mail}")
     private String shopMail;
+
     public EmailServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }

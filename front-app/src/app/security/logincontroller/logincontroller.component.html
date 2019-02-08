@@ -1,8 +1,11 @@
+
 <mat-tab-group class="card">
+    
     <mat-tab label="Login"> <app-login></app-login> </mat-tab>
     <mat-tab label="Sign Up"> <app-register></app-register> </mat-tab>
     <mat-tab label="Forgot Password?"> 
 
+      
         <div *ngIf="isSentUp; else signupForm" style="margin-top: 10px;">
             <mat-card class="card">
               Email with change password notification has been sent!
@@ -41,15 +44,17 @@
                         </form>
                       </div>
                     
+                      <div *ngIf="loading" style="margin-top: 10px;" >
+                          <mat-spinner  [diameter]="30" style="margin-top: 10px; margin: auto;"></mat-spinner>
+                      </div>
+                      
+
                   </mat-card-content>
             </mat-card>
         </ng-template>
 
 
-
-
-
-
     </mat-tab>
+ 
   </mat-tab-group>
-  
+

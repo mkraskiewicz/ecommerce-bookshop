@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public void save(User user) {
         userRepository.save(user);
     }
@@ -50,5 +55,15 @@ public class UserServiceImpl implements UserService {
         // RedirectAttributes
         returnMap.put("message","You have successfully reset your password. You may now login.");
         return returnMap;
+    }
+
+    @Override
+    public Boolean ifUserExists(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public Boolean ifUserWithEmailExists(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

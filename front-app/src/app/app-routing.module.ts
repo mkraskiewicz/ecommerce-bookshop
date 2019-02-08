@@ -12,6 +12,7 @@ import { BookEditComponent } from './components/book/book-edit/book-edit.compone
 import { HomeUserComponent } from './components/home/home-user/home-user.component';
 import { LogincontrollerComponent } from './security/logincontroller/logincontroller.component';
 import { ResetPasswordComponent } from './security/reset-password/reset-password.component';
+import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
 
 const routes: Routes = [
     {
@@ -53,6 +54,10 @@ const routes: Routes = [
     {
         path: 'auth/resetpassword/:token',
         component: ResetPasswordComponent
+    },
+    {
+        path: 'user/myprofile',
+        component: MyProfileComponent
     },
     {
         path: '',

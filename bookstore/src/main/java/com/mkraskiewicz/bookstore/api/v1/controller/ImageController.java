@@ -35,7 +35,6 @@ public class ImageController {
     public BookDto handleImagePost(@PathVariable String bookId, @RequestParam("file") MultipartFile file){
 
         imageService.saveImageFile(Long.valueOf(bookId),file);
-
         return bookService.findById(1L);
     }
 
