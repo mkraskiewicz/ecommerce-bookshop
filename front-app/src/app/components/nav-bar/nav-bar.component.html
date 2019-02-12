@@ -24,7 +24,7 @@
         <span class="example-spacer"></span>
         <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >My Account</button></span>
         <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >Shopping Cart</button></span>
-        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="booklist" >My Profile</button></span>
+        <span *ngIf="authority && authority==='user'"><button mat-raised-button color="primary" routerLink="user/myprofile" >My Profile</button></span>
         <span *ngIf="authority"><button mat-raised-button color="primary" (click)="logout()">Logout</button></span>
       </mat-toolbar>
       <router-outlet></router-outlet>

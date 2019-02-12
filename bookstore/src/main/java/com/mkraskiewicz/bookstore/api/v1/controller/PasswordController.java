@@ -31,7 +31,7 @@ import java.util.UUID;
 @RequestMapping(PasswordController.BASE_URL)
 public class PasswordController {
 
-    public static final String BASE_URL = "/api/auth/forgot-password";
+    public static final String BASE_URL = "/api/auth/account";
     private static final String SERWER_NAME ="http://localhost:4200";
 
     private final UserService userService;
@@ -54,6 +54,38 @@ public class PasswordController {
     @ResponseStatus(HttpStatus.OK)
     public Map<String, String> processForgotPasswordForm(@RequestParam("email") String userEmail,
                                                   HttpServletRequest request) {
+
+        Map<String, String> returnMap = new HashMap<>();
+        Optional<User> optional = userService.findByEmail(userEmail);
+        if (!optional.isPresent()) {
+            returnMap.put("error", "We didn't find an account for that e-mail address.");
+            return returnMap;
+        } else {
+            // Generate random 36-character string token for reset password
+            User user = optional.get();
+            UserTokens userTokens = user.getTokens();
+            userTokens.setForgetToken(UUID.randomUUID().toString());
+            // Save token to database
+            userService.save(user);
+
+            Context context = new Context();
+            context.setVariable("header", "Mkraskiewicz Bookshop");
+            context.setVariable("title", "Account Activation");
+            context.setVariable("description", "To activate your account, click the link below:\n"
+                    + SERWER_NAME + "/auth/activateaccount/" + user.getTokens().getForgetToken());
+            String body = templateEngine.process("resetPassword", context);
+            emailService.SendPasswordReminder(userEmail, "Account Activation", body);
+
+            // Add success message to view
+            returnMap.put("message", "An activation link has been sent to " + userEmail);
+            return returnMap;
+        }
+    }
+
+
+    @PostMapping("/resendemail")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, String> processActivation(@RequestParam("email") String userEmail) {
 
         Map<String, String> returnMap = new HashMap<>();
         Optional<User> optional = userService.findByEmail(userEmail);
@@ -100,6 +132,27 @@ public class PasswordController {
         } else {
             returnMap.put("error","Oops!  This is an invalid password reset link.");
            return returnMap;
+
+        }
+    }
+
+    @PostMapping("/activate")
+    @ResponseStatus(HttpStatus.OK)
+    public Map<String, String> activateUser(@RequestParam String token) {
+
+        Map<String, String> returnMap = new HashMap<>();
+        Optional<UserTokens> userTokensOptional = Optional
+                .ofNullable(userTokensService.findByForgetToken(token));
+        Optional<User> resetUser = Optional.empty();
+        if(userTokensOptional.isPresent()){
+            resetUser = Optional.ofNullable(userTokensOptional.get().getUser());
+        }
+
+        if (resetUser.isPresent()) {
+            return userService.activateAccount(resetUser.get(),userTokensOptional.get());
+        } else {
+            returnMap.put("error","Oops!  This is an invalid password reset link.");
+            return returnMap;
 
         }
     }

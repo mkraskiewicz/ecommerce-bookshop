@@ -4,9 +4,11 @@ import com.mkraskiewicz.bookstore.domain.Role;
 import com.mkraskiewicz.bookstore.domain.RoleName;
 import com.mkraskiewicz.bookstore.repository.RoleRepository;
 import com.mkraskiewicz.bookstore.service.RoleService;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;

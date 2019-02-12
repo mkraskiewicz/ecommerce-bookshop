@@ -33,6 +33,8 @@ public class User {
     @Size(min=3, max = 50)
     private String name;
 
+    private String surname;
+
     @NotBlank
     @Size(min=3, max = 50)
     private String username;
@@ -46,6 +48,8 @@ public class User {
     @NotBlank
     @Size(min=6, max = 100)
     private String password;
+
+    private boolean enabled;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -61,6 +65,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.enabled = false;
     }
 
 }

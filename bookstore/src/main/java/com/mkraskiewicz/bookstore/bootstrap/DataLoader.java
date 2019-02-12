@@ -45,7 +45,9 @@ public class DataLoader implements CommandLineRunner {
         roles.add(a);
         roles.add(c);
         admin.setRoles(roles);
+        admin.setEnabled(true);
         userRepository.save(admin);
+
 
         UserTokens ut = new UserTokens();
         ut.setUser(admin);
@@ -60,6 +62,7 @@ public class DataLoader implements CommandLineRunner {
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(a);
         user.setRoles(userRoles);
+        user.setEnabled(false);
         userRepository.save(user);
 
 

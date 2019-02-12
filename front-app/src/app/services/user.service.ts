@@ -13,7 +13,7 @@ export class UserService {
  
   private userUrl = 'http://localhost:8080/api/test/user';
   private adminUrl = 'http://localhost:8080/api/test/admin';
-  private forgotUrl = 'http://localhost:8080/api/auth/forgot-password';
+  private forgotUrl = 'http://localhost:8080/api/auth/account';
  
   constructor(private http: HttpClient) { }
  
@@ -36,4 +36,13 @@ export class UserService {
     }, httpOptions);
   }
 
+  acivateAccount(userToken: string) {
+    return this.http.post(this.forgotUrl + '/activate' + "?token=" + userToken,
+     httpOptions);
+  }
+  
+  resendEmail(email : string){
+  return this.http.post(this.forgotUrl + '/resendemail' + "?email=" + email,
+    httpOptions);
+  }
 }

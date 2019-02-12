@@ -4,7 +4,9 @@ import com.mkraskiewicz.bookstore.domain.User;
 import com.mkraskiewicz.bookstore.domain.UserTokens;
 import com.mkraskiewicz.bookstore.repository.UserTokensRepository;
 import com.mkraskiewicz.bookstore.service.UserTokensService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserTokensServiceImpl implements UserTokensService {
 
     private final UserTokensRepository userTokensRepository;

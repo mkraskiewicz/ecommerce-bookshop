@@ -24,6 +24,7 @@ import { LogincontrollerComponent } from './security/logincontroller/logincontro
 import { CheckPasswordDirective } from './security/check-password.directive';
 import { ResetPasswordComponent } from './security/reset-password/reset-password.component';
 import { MyProfileComponent } from './components/user/my-profile/my-profile.component';
+import { ActivateAccountComponent } from './security/activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MyProfileComponent } from './components/user/my-profile/my-profile.comp
     LogincontrollerComponent,
     CheckPasswordDirective,
     ResetPasswordComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    ActivateAccountComponent
   ],
   imports: [
     BrowserModule,

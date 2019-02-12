@@ -3,8 +3,6 @@ package com.mkraskiewicz.bookstore.api.v1.controller;
 import com.mkraskiewicz.bookstore.domain.Role;
 import com.mkraskiewicz.bookstore.domain.RoleName;
 import com.mkraskiewicz.bookstore.domain.User;
-import com.mkraskiewicz.bookstore.repository.RoleRepository;
-import com.mkraskiewicz.bookstore.repository.UserRepository;
 import com.mkraskiewicz.bookstore.security.jwt.JwtProvider;
 import com.mkraskiewicz.bookstore.security.message.request.LoginForm;
 import com.mkraskiewicz.bookstore.security.message.request.SignUpForm;
@@ -12,7 +10,6 @@ import com.mkraskiewicz.bookstore.security.message.response.JwtResponse;
 import com.mkraskiewicz.bookstore.security.message.response.ResponseMessage;
 import com.mkraskiewicz.bookstore.service.RoleService;
 import com.mkraskiewicz.bookstore.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,14 +37,16 @@ public class AuthRestAPIs {
 	private final RoleService roleService;
 	private final PasswordEncoder encoder;
 	private final JwtProvider jwtProvider;
+	private final PasswordController passwordController;
 
 	public AuthRestAPIs(AuthenticationManager authenticationManager, UserService userService, RoleService roleService,
-						PasswordEncoder encoder, JwtProvider jwtProvider) {
+						PasswordEncoder encoder, JwtProvider jwtProvider, PasswordController passwordController) {
 		this.authenticationManager = authenticationManager;
 		this.userService = userService;
 		this.roleService = roleService;
 		this.encoder = encoder;
 		this.jwtProvider = jwtProvider;
+		this.passwordController = passwordController;
 	}
 
 	@PostMapping("/signin")
@@ -100,7 +99,7 @@ public class AuthRestAPIs {
 
 		user.setRoles(roles);
 		userService.save(user);
-
+		passwordController.processActivation(user.getEmail());
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
 	}
 }

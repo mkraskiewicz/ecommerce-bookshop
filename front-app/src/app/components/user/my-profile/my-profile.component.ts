@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/user';
 import { UserService } from 'src/app/services/user.service';
+import { TokenStorageService } from 'src/app/security/auth/token-storage.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -20,9 +21,20 @@ export class MyProfileComponent implements OnInit {
 	private newPassword: string;
 	private incorrectPassword: boolean;
 
-  constructor(
-  	private userService: UserService
-  	) { }
+  private roles: string[];
+  private authority: string;
+  private username: string;
+  private isActivated: boolean;
+
+  constructor(private tokenStorage: TokenStorageService, private userService: UserService) { }
+
+  ngOnInit() {
+    if (this.tokenStorage.getToken()){
+      this.isActivated = true;
+    } else {
+      this.isActivated = false;
+    }
+  }
 
   onUpdateUserInfo () {
   	// this.userService.updateUserInfo(this.user, this.newPassword).subscribe(
@@ -36,9 +48,6 @@ export class MyProfileComponent implements OnInit {
   	// 		if(errorMessage==="Incorrect current password!") this.incorrectPassword=true;
   	// 	}
   	// );
-  }
-
-  ngOnInit() {
   }
 
 }

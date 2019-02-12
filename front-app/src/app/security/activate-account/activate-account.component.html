@@ -1,0 +1,30 @@
+<div *ngIf="isActivated; else activationForm" style="margin-top: 10px;">
+    <mat-card class="card">
+      Your account has been activated.
+    </mat-card>
+</div>
+ 
+<ng-template #activationForm>
+    <mat-card class="card" style="max-width:350px; margin-top: 10px;">
+        <mat-card-header>
+          
+          <mat-card-title>Account activation</mat-card-title>
+        </mat-card-header>
+      <mat-card-content>
+        <div class="row col-sm-6" style="max-width:350px;">
+          <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+       
+            <div class="form-group" style="text-align:center;">
+              <button mat-raised-button color="primary">Activate</button>
+              <div *ngIf="f.submitted && isResetFailed" class="alert alert-warning">
+                  <mat-error>Activation failed!<br/>{{errorMessage}}</mat-error>
+              </div>
+            </div>
+          </form>
+
+          <button mat-raised-button color="primary" (click)="resendEmail()">Send activation mail again.</button>
+          <p>{{ sendAgain }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</ng-template>

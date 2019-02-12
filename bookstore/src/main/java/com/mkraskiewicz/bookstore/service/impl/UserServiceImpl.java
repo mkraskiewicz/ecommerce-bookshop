@@ -58,6 +58,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Map<String, String> activateAccount(User user, UserTokens userTokens) {
+
+        Map<String, String> returnMap = new HashMap<>();
+        // Set new password
+        user.setEnabled(true);
+
+        // Set the reset token to null so it cannot be used again
+        userTokens.setForgetToken(null);
+
+        // Save user
+        save(user);
+
+        // In order to set a model attribute on a redirect, we must use
+        // RedirectAttributes
+        returnMap.put("message","You have successfully activated account.");
+        return returnMap;
+    }
+
+    @Override
     public Boolean ifUserExists(String username) {
         return userRepository.existsByUsername(username);
     }

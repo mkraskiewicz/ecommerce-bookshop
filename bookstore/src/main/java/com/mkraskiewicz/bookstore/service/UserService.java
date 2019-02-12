@@ -13,6 +13,7 @@ public interface UserService {
     void save(User user);
     Map<String, String> resetPassword(User user, UserTokens userTokens,
                                              String password);
+    Map<String, String> activateAccount(User user, UserTokens userTokens);
     Boolean ifUserExists(String username);
     Boolean ifUserWithEmailExists(String email);
 
